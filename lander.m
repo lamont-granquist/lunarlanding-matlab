@@ -13,6 +13,10 @@
 % - The rootfinder may need to be constrained to not exceed the periapsis of the coasting trajectory
 % - The rootfinder may need to be constrained to not exceed the apoapsis of the coasting trajectory in the
 %   negative direction
+% - The user may want to evaluate the trajectory while the vessel is still approaching apoasis, may want to
+%   enforce a coast to apoapsis
+% - However, in certain circumstances would it be necessary to start burning before apoapsis to greatly slow down
+%   large horizontal velocities?
 %
 
 close all; clear classes; clear all; clc;
