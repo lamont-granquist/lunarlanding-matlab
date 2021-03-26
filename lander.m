@@ -18,6 +18,14 @@
 % - However, in certain circumstances would it be necessary to start burning before apoapsis to greatly slow down
 %   large horizontal velocities?
 %
+% TODO:
+%
+% - detect orbits with periapsis above the target radius and suitably warn
+% - detect hyperbolic orbits that are leaving the SOI and suitably warn
+% - detect starting conditions within the body and suitably warn
+% - fuzz the input with elliptical-to-hyperbolic orbits with periapsis radius below the body radius and
+%   random starting position
+%
 
 close all; clear classes; clear all; clc;
 format longG;
