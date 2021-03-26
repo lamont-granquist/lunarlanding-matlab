@@ -19,6 +19,12 @@ stages(1).thrust = 45040;         % N
 stages(1).isp    = 311;           % sec
 stages(1).bt     = 555;           % sec
 
+% we shouldn't use the ascent stage to land but this demonstrates multistage
+stages(2).m0     = 4700;      % kg
+stages(2).thrust = 16 * 1000; % N
+stages(2).isp    = 311;       % sec
+stages(2).bt     = 463.250;   % sec
+
 r0 = [ 1.7371e+6*1.1 0 0]';
 v0 = [-100 100 0]' * 5;
 
@@ -135,11 +141,11 @@ function [xf] = multipleShooting(x0, phases, body)
   for p = 1:Nphases
     bt = phases(p).bt_bar;
     if bt ~= 0
-      bt
       [ts,xs,te,xe,ie] =  ode45(@(t,x) EOM(t, x, p, phases, body), [0 bt], x, ode45options);
-      te
-
       x = xs(end,:);
+      if ~isempty(te)
+        break % do not integrate any further upper stages (this may be weird if we coast through periapsis)
+      end
     end
   end
 
