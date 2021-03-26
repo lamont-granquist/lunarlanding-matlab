@@ -1,3 +1,20 @@
+% Implements a simple land-anywhere guidance law which lands with zero surface horizontal velocity
+%
+% - Spherical, rotating central body with nonlinear gravity model
+% - Handles multiple stages
+% - Single coast-burn, must be initialized with a trajectory with a periapsis below the surface
+% - Negative time solutions indicate unavoidable lithobreaking
+%
+% Possible edge conditions:
+%
+% - Coasting may trigger the edge condition past the periapsis
+% - The last stage may not have enough thrust/burntime to null the vertical velocity near the periapsis
+%   (when the rootfinder is coasting too long -- maybe should set the upper burntime to the tau of the stage)
+% - The rootfinder may need to be constrained to not exceed the periapsis of the coasting trajectory
+% - The rootfinder may need to be constrained to not exceed the apoapsis of the coasting trajectory in the
+%   negative direction
+%
+
 close all; clear classes; clear all; clc;
 format longG;
 format compact;
