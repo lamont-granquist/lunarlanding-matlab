@@ -196,11 +196,11 @@ function dX_dt = EOM(t, X, p, phases, body)
   m  = X(indexes.m);
 
   vhT = cross(body.w_bar, r);
-  vv = dot(v, r) / norm(r);
+  vv = dot(v, r) / dot(r,r) * r;
   vh = v - vv;
 
   % the 0.0001 here is a hack to avoid terminal guidance issues and keep the rocket pointing up
-  u = (0.0001-vv) * r/norm(r) + ( vhT - vh );
+  u = - vv + ( vhT - vh );
   u = u/norm(u);
   %u = r/norm(r);
   T = thrust / (m * g_bar);
