@@ -121,7 +121,7 @@ function ct = solver(phases, body, r0, v0)
   % MAIN SOLVER
   %
 
-  ct_bar = fzero(@(ct) residualFunction(ct, x0, phases, body), 0);
+  [ct_bar,fval,exitflag,output] = fzero(@(ct) residualFunction(ct, x0, phases, body), 0);
 
   phases(1).bt_bar = ct_bar;
 
@@ -199,10 +199,11 @@ function dX_dt = EOM(t, X, p, phases, body)
   vv = dot(v, r) / dot(r,r) * r;
   vh = v - vv;
 
-  % the 0.0001 here is a hack to avoid terminal guidance issues and keep the rocket pointing up
   u = - vv + ( vhT - vh );
   u = u/norm(u);
-  %u = r/norm(r);
+  if dot(v,r)/norm(r) > 0
+    u = r/norm(r);
+  end
   T = thrust / (m * g_bar);
 
   r2 = dot(r,r);
