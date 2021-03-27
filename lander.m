@@ -199,11 +199,11 @@ function dX_dt = EOM(t, X, p, phases, body)
   vv = dot(v, r) / dot(r,r) * r;
   vh = v - vv;
 
-  u = - vv + ( vhT - vh );
+  u = (0.0001 * r - vv) + ( vhT - vh );
   u = u/norm(u);
-  if dot(v,r)/norm(r) > 0
-    u = r/norm(r);
-  end
+  %if dot(v,r)/norm(r) > 0
+  %  u = r/norm(r);
+  %end
   T = thrust / (m * g_bar);
 
   r2 = dot(r,r);
